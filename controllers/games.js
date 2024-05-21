@@ -6,4 +6,8 @@ const sendGameById = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.game));
 };
-module.exports = {sendGameCreated,sendGameById};
+const sendGameUpdated = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).send(JSON.stringify({ message: "Игра обновлена" }));
+};
+module.exports = { sendGameCreated, sendGameById, sendGameUpdated };

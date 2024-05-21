@@ -27,4 +27,13 @@ const findUserById = async (req, res, next) => {
     res.status(404).send(JSON.stringify({ message: "Пользователь не найден" }));
   }
 };
-module.exports = { findAllUsers, createUser, findUserById };
+const updateUser = async (req, res, next) => {
+  try {
+    req.user = await users.findByIdAndUpdate(req.params.id, req.body);
+    next();
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка обновления игры" }));
+  }
+};
+module.exports = { findAllUsers, createUser, findUserById, updateUser };
