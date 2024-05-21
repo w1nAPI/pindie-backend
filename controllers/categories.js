@@ -1,6 +1,5 @@
-const sendAllCategories = (req, res) => {
+const sendCategoryCreated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify(req.categoriesArray));
+  res.end(JSON.stringify(req.category));
 };
-
-module.exports = sendAllCategories;
+module.exports = sendCategoryCreated;
