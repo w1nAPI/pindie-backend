@@ -36,9 +36,19 @@ const updateCategory = async (req, res, next) => {
     res.status(400).send(JSON.stringify({ message: "Ошибка обновления игры" }));
   }
 };
+const deleteCategory = async (req, res, next) => {
+  try {
+    req.category = await categories.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка удаления игры" }));
+  }
+};
 module.exports = {
   findAllCategories,
   createCategory,
   findCategoryById,
   updateCategory,
+  deleteCategory,
 };
