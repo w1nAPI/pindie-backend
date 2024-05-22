@@ -51,6 +51,10 @@ const checkIsUserExists = async (req, res, next) => {
     next();
   }
 };
+const sendMe = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.user));
+};
 module.exports = {
   sendAllUsers,
   sendUserCreated,
@@ -60,4 +64,5 @@ module.exports = {
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
   checkIsUserExists,
+  sendMe,
 };

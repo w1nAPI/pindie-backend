@@ -18,6 +18,7 @@ const {
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
   checkIsUserExists,
+  sendMe,
 } = require("../controllers/users");
 usersRouter.get("/users", findAllUsers, sendAllUsers);
 usersRouter.post(
@@ -38,6 +39,8 @@ usersRouter.put(
   updateUser,
   sendUserUpdated
 );
+usersRouter.get("/me", checkAuth, sendMe);
 usersRouter.get("/users/:id", findUserById, sendUserById);
 usersRouter.delete("/games/:id", checkAuth, deleteUser, sendUserDeleted);
+
 module.exports = usersRouter;
