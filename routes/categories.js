@@ -1,6 +1,7 @@
 const categoriesRouter = require("express").Router();
 const {
   findAllCategories,
+  checkIsCategoryExists,
   createCategory,
   findCategoryById,
   updateCategory,
@@ -17,6 +18,7 @@ const {
 categoriesRouter.post(
   "/categories",
   findAllCategories,
+  checkIsCategoryExists,
   createCategory,
   sendCategoryCreated
 );
