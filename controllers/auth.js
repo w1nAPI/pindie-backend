@@ -38,4 +38,11 @@ const sendIndex = (req, res) => {
   }
   res.sendFile(path.join(__dirname, "../public/index.html"));
 };
-module.exports = { login, sendIndex, sendDashboard };
+const checkCookiesJWT = (req, res, next) => {
+  if (!req.cookies.jwt) {
+    return res.redirect("/");
+  }
+  req.headers.authorization = `Bearer ${req.cookies.jwt}`;
+  next();
+};
+module.exports = { login, sendIndex, sendDashboard, checkCookiesJWT };
