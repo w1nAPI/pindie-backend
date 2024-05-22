@@ -1,4 +1,11 @@
-const getData = async url => {
+const getJWTFromCookie = () => {
+  const cookie = document.cookie
+    .split(";")
+    .find((cookie) => cookie.trim().startsWith("jwt="));
+  return cookie ? cookie.split("=")[1] : null;
+};
+
+const getData = async (url) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -9,11 +16,15 @@ const getData = async url => {
 };
 
 const postData = async (url, data) => {
+  const jwt = getJWTFromCookie();
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: jwt && `Bearer ${jwt}`,
+      },
+      body: JSON.stringify(data),
     });
     if (response.status !== 200) {
       throw new Error((await response.json()).message);
@@ -25,11 +36,15 @@ const postData = async (url, data) => {
 };
 
 const putData = async (url, data) => {
+  const jwt = getJWTFromCookie();
   try {
     const response = await fetch(url, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: jwt && `Bearer ${jwt}`,
+      },
+      body: JSON.stringify(data),
     });
     if (response.status !== 200) {
       throw new Error((await response.json()).message);
@@ -40,10 +55,15 @@ const putData = async (url, data) => {
   }
 };
 
-const deleteData = async url => {
+const deleteData = async (url) => {
+  const jwt = getJWTFromCookie();
   try {
     const response = await fetch(url, {
-      method: "DELETE"
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: jwt && `Bearer ${jwt}`,
+      },
+      method: "DELETE",
     });
     return response;
   } catch (err) {

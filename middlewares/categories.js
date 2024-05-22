@@ -11,7 +11,21 @@ const checkIsCategoryExists = async (req, res, next) => {
   });
   if (isInArray) {
     res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Категория с таким названием уже существует" }));
+    res.status(400).send(
+      JSON.stringify({
+        message: "Категория с таким названием уже существует",
+      })
+    );
+  } else {
+    next();
+  }
+};
+const checkEmptyName = async (req, res, next) => {
+  if (!req.body.name) {
+    res.setHeader("Content-Type", "application/json");
+    res
+      .status(400)
+      .send(JSON.stringify({ message: "Введите название категории" }));
   } else {
     next();
   }
@@ -60,6 +74,7 @@ const deleteCategory = async (req, res, next) => {
 module.exports = {
   findAllCategories,
   checkIsCategoryExists,
+  checkEmptyName,
   createCategory,
   findCategoryById,
   updateCategory,

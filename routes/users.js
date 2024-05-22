@@ -12,10 +12,26 @@ const {
   sendUserById,
   sendUserUpdated,
   sendUserDeleted,
+  checkEmptyNameAndEmailAndPassword,
+  checkEmptyNameAndEmail,
+  checkIsUserExists,
 } = require("../controllers/users");
 usersRouter.get("/users", findAllUsers, sendAllUsers);
-usersRouter.post("/users", findAllUsers, createUser, sendUserCreated);
+usersRouter.post(
+  "/users",
+  findAllUsers,
+  checkIsUserExists,
+  checkEmptyNameAndEmailAndPassword,
+  createUser,
+  sendUserCreated
+);
+
+usersRouter.put(
+  "/users/:id",
+  checkEmptyNameAndEmail,
+  updateUser,
+  sendUserUpdated
+);
 usersRouter.get("/users/:id", findUserById, sendUserById);
-usersRouter.put("/users/:id", updateUser, sendUserUpdated);
 usersRouter.delete("/games/:id", deleteUser, sendUserDeleted);
 module.exports = usersRouter;
