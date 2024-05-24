@@ -41,6 +41,6 @@ usersRouter.put(
 );
 usersRouter.get("/me", checkAuth, sendMe);
 usersRouter.get("/users/:id", findUserById, sendUserById);
-usersRouter.delete("/games/:id", checkAuth, deleteUser, sendUserDeleted);
+usersRouter.delete("/users/:id", checkAuth, deleteUser, sendUserDeleted);
 
 module.exports = usersRouter;
