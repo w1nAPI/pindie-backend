@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const connectToDatabase = require("./database/connect");
 const pagesRouter = require("./routes/pages");
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 connectToDatabase();
 app.use(
   cookieParser(),
